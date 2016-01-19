@@ -156,6 +156,11 @@ var Engine = (function(global) {
 
         player.render();
 
+        // RENDERING OBSTACLE
+        allObstacles.forEach(function(obstacle) {
+            obstacle.render();
+        });
+
     }
 
     /* This function does nothing but it could have been a good place to
@@ -176,7 +181,8 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-cat-girl.png',
-
+        //loading in an obstacle
+        'images/rock.png'
     ]);
     Resources.onReady(init);
 

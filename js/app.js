@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     //return dt;
 
-    if( this.x >= 808){
+    if( this.x >= 909){
         this.enemyReset();
     }
     
@@ -100,6 +100,7 @@ Player.prototype.handleInput = function(key){
     switch(key){
 
         case "left":
+
                 this.x-=101;
         break;
 
@@ -118,9 +119,6 @@ Player.prototype.handleInput = function(key){
     }
     console.log("x:" + this.x + " / y:" + this.y);
 };
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
 //Collision functtion
 Player.prototype.collide = function (){
@@ -135,12 +133,21 @@ Player.prototype.collide = function (){
             this.playerReset();
             console.log("Hero has collided with bug!");
 
-        } /*else {
-
-            console.log("Hero has reached the water!");
-
-        }*/
+        }
     }
+}
+Player.prototype.blocked = function(){
+    
+    for(var i=0; i < allObstacles.length; i++){
+
+        if(this.x == allObstacles[i].x && this.y == allObstacles[i].y){
+            
+            this.playerReset();
+            console.log("hero collided with Obstacle");
+        }
+
+    }
+
 }
 
 //Reset player to initial starting point
@@ -150,6 +157,23 @@ Player.prototype.playerReset = function(){
     this.y = this.initPlayY;
 
 }
+
+//Create obstacle object
+var Obstacle = function(x, y){
+
+    this.obj = 'images/rock.png';
+    this.x = x;
+    this.y = y;
+
+}
+//render obstacle
+Obstacle.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.obj), this.x, this.y);
+};
+
+// Now instantiate your objects.
+// Place all enemy objects in an array called allEnemies
+// Place the player object in a variable called player
 
 // Create New Player
 var player = new Player('images/char-cat-girl.png', 404, 545);
@@ -162,6 +186,16 @@ var enemy4 = new Enemy(-20, 380, 120);
 
 // Build array for enemies
 var allEnemies = [enemy1, enemy2, enemy3, enemy4];
+
+// Create a few obstacles
+var obstacle1 = new Obstacle(0, 296);
+var obstacle2 = new Obstacle(202, 296);
+var obstacle3 = new Obstacle(404, 296);
+var obstacle4 = new Obstacle(606, 296);
+var obstacle5 = new Obstacle(808, 296);
+
+// Build array for obstacles
+var allObstacles = [obstacle1, obstacle2, obstacle3, obstacle4, obstacle5];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

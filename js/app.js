@@ -72,35 +72,30 @@ var Player = function(sprite, x, y){
     this.initPlayY  = y;  
 };
 
-/*Player.prototype.update = function(){
-
-    if(this.y == '-36'){
-        this.x = initPlayerx;
-        this.y = initPlayery;
-        console.log("hero has reached the water!");
-    }
-
-};*/
-
 Player.prototype.update = function(){
 
     if (this.x < 0) {
+
         this.x = 0;
-    }
-    else if (this.x > 808){
+
+    } else if (this.x > 808){
+
         this.x = 808;
-    }
-    else if (this.y < -80 ){
-        this.y = -80;
-    }
-    else if (this.y > 545){
+
+    }  else if (this.y < -40 ){
+
+        this.y = -40;
+
+    } else if (this.y > 545){
+
         this.y = 545;
-    }
-    else if( this.y <= 10 && this.x <= 909){
+
+    } else if( this.y <= 0 && this.x <= 808){
+
         this.playerReset();
 
-    }
-    else if (this.collide()) {
+    } else if (this.collide()) {
+
         this.playerReset();
     }
 }
@@ -108,11 +103,11 @@ Player.prototype.update = function(){
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-
 };
 
 Player.prototype.handleInput = function(key){
    
+   //switch and case for key stroke movement
     switch(key){
 
         case "left":
@@ -138,18 +133,25 @@ Player.prototype.handleInput = function(key){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+//Collision functtion
 Player.prototype.collide = function (){
 
     for(var i=0; i < allEnemies.length; i++){
-        if (this.x < allEnemies[i].x + 40 &&
-            this.x + 40 > allEnemies[i].x &&
-            this.y < allEnemies[i].y + 40 &&
-            this.y + 40 > allEnemies[i].y){
+
+        if (this.x < allEnemies[i].x + 50 &&
+            this.x + 50 > allEnemies[i].x &&
+            this.y < allEnemies[i].y + 50 &&
+            this.y + 50 > allEnemies[i].y){
+
             this.playerReset();
             console.log("fail");
+
         } else {
+
             console.log("Hero has reached the water!");
+
         }
+
     }
 }
 

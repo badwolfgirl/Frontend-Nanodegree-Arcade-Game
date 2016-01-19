@@ -23,24 +23,12 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     //return dt;
 
-    /*if (this.x < 0) {
-        this.x = 0;
-    }
-    else if (this.x > 808){
-        this.x = 808;
-    }
-    else if (this.y < -80 ){
-        this.y = -80;
-    }
-    else if (this.y > 545){
-        this.y = 545;
-    }
-    else if( this.y < 10 && this.x <= 909){
+    if( this.x >= 808){
         this.enemyReset();
-
-    }else{*/
-
+    }
+    
     this.x += this.speed * dt;
+   
     
 
    // }
@@ -92,6 +80,7 @@ Player.prototype.update = function(){
 
     } else if( this.y <= 0 && this.x <= 808){
 
+        console.log("Hero has reached the water!");
         this.playerReset();
 
     } else if (this.collide()) {
@@ -144,14 +133,13 @@ Player.prototype.collide = function (){
             this.y + 50 > allEnemies[i].y){
 
             this.playerReset();
-            console.log("fail");
+            console.log("Hero has collided with bug!");
 
-        } else {
+        } /*else {
 
             console.log("Hero has reached the water!");
 
-        }
-
+        }*/
     }
 }
 

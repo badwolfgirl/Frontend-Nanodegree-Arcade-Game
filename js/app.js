@@ -8,8 +8,11 @@ var Enemy = function(x, y, speed) {
     this.sprite     = 'images/enemy-bug.png';
     this.x          = x;
     this.y          = y;
-    this.speed      = speed;
 
+    this.initX      = x;
+    this.initY      = y;  
+
+    this.speed      = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -20,7 +23,27 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     //return dt;
 
+    /*if (this.x < 0) {
+        this.x = 0;
+    }
+    else if (this.x > 808){
+        this.x = 808;
+    }
+    else if (this.y < -80 ){
+        this.y = -80;
+    }
+    else if (this.y > 545){
+        this.y = 545;
+    }
+    else if( this.y < 10 && this.x <= 909){
+        this.enemyReset();
+
+    }else{*/
+
     this.x += this.speed * dt;
+    
+
+   // }
 
 };
 
@@ -29,25 +52,59 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Enemy.prototype.enemyReset = function(){
+    
+        this.x = this.initX;
+
+}
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(sprite, x, y){
 
-    this.sprite = sprite;
-    this.x = x;
-    this.y = y;  
+    this.sprite     = sprite;
+
+    this.x          = x;
+    this.y          = y; 
+
+    this.initPlayX  = x;
+    this.initPlayY  = y;  
 };
 
-Player.prototype.update = function(){
+/*Player.prototype.update = function(){
 
     if(this.y == '-36'){
         this.x = initPlayerx;
         this.y = initPlayery;
         console.log("hero has reached the water!");
     }
-    
-};
+
+};*/
+
+Player.prototype.update = function(){
+
+    if (this.x < 0) {
+        this.x = 0;
+    }
+    else if (this.x > 808){
+        this.x = 808;
+    }
+    else if (this.y < -80 ){
+        this.y = -80;
+    }
+    else if (this.y > 545){
+        this.y = 545;
+    }
+    else if( this.y <= 10 && this.x <= 909){
+        this.playerReset();
+
+    }
+    else if (this.collide()) {
+        this.playerReset();
+    }
+}
+
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -59,31 +116,19 @@ Player.prototype.handleInput = function(key){
     switch(key){
 
         case "left":
-            if(this.x != 4){
-
                 this.x-=101;
-
-            }
         break;
 
         case "right":
-            if(this.x != 804){
-
                 this.x+=101;
-                
-            }
         break;
 
         case "up":
-            if(this.y != '-50'){
                 this.y-=83;
-            }
         break;
 
         case "down":
-            if(this.y != 545){
                 this.y+=83;
-            }
         break;     
        
     }
@@ -93,19 +138,40 @@ Player.prototype.handleInput = function(key){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+Player.prototype.collide = function (){
 
-var initPlayerx = 404;
-var initPlayery = 545;
+    for(var i=0; i < allEnemies.length; i++){
+        if (this.x < allEnemies[i].x + 40 &&
+            this.x + 40 > allEnemies[i].x &&
+            this.y < allEnemies[i].y + 40 &&
+            this.y + 40 > allEnemies[i].y){
+            this.playerReset();
+            console.log("fail");
+        } else {
+            console.log("Hero has reached the water!");
+        }
+    }
+}
 
-var player = new Player('images/char-cat-girl.png', initPlayerx, initPlayery);
+//Reset player to initial starting point
+Player.prototype.playerReset = function(){
 
-var enemy1 = new Enemy(2, 47, 60);
-//var enemy2 = new Enemy(100, 140, 60);
-//var enemy3 = new Enemy(-20, 220, 60);
-//var enemy4 = new Enemy(300, 380, 60);
+    this.x = this.initPlayX;
+    this.y = this.initPlayY;
 
-var allEnemies = [enemy1/*, enemy2, enemy3, enemy4*/];
+}
 
+// Create New Player
+var player = new Player('images/char-cat-girl.png', 404, 545);
+
+// Create a few enemies
+var enemy1 = new Enemy(2, 47, 80);
+var enemy2 = new Enemy(-50, 140, 100);
+var enemy3 = new Enemy(-100, 220, 60);
+var enemy4 = new Enemy(-20, 380, 120);
+
+// Build array for enemies
+var allEnemies = [enemy1, enemy2, enemy3, enemy4];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

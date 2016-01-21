@@ -180,9 +180,14 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
+        'images/char-boy.png',
+        //loading in an obstacle
         'images/char-cat-girl.png',
+        'images/char-princess-girl.png',
+        'images/char-horn-girl.png',
         //loading in an obstacle
         'images/rock.png'
+
     ]);
     Resources.onReady(init);
 

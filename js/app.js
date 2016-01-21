@@ -22,16 +22,12 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     //return dt;
 
-    // if the bug moves past boundary, reset
-    if( this.x >= 909){
+    // if the bug moves past boundary, reset bug
+    if(this.x >= 909){
         this.enemyReset();
     }
     
     this.x += this.speed * dt;
-   
-    
-
-   // }
 
 };
 
@@ -39,19 +35,18 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
+// reset enemy if it moves past screen
 Enemy.prototype.enemyReset = function(){
-    
-        this.x = this.initX;
-
+    this.x = this.initX;
 }
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(sprite, x, y){
+var Player = function(sprite, x, y, charc){
 
     this.sprite     = sprite;
+    this.charc      = charc;
 
     this.x          = x;
     this.y          = y; 
@@ -60,33 +55,39 @@ var Player = function(sprite, x, y){
     this.initPlayY  = y;  
 
     this.score      = 0;
-};
 
+};
+//Update player
 Player.prototype.update = function(){
 
     // if the hero reaches the top reset
-    if(this.y <= 0 && this.x <= 808){
+    if(this.y <= 0 && this.x <= 909){
 
         this.score +=1;
-        alert("Hero has reached the water! Score = "+ this.score +"!");
+
+        alert(this.charc+" has reached the water! Score = "+ this.score +"!");
 
         for(var i=0; i < allEnemies.length; i++){
             allEnemies[i].enemyReset();
         }
-        this.playerReset();
-
-    } else if (this.collide()) {
 
         this.playerReset();
 
-    }
+    }else 
+
+    // check if the hero is blocked by obstacle
+    if(this.blocked() || this.collide()){
+
+        this.playerReset();
+
+    } 
 }
 
-
+// render player
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
+// move the character within boundary
 Player.prototype.handleInput = function(key){
    
    //switch and case for key stroke movement
@@ -94,41 +95,33 @@ Player.prototype.handleInput = function(key){
 
         case "left":
 
-            if(this.x != 0){
-                this.x-=101;
-            }
-
+            if(this.x != 0) this.x-=101;
+            
         break;
 
         case "right":
 
-            if(this.x != 808){
-                this.x+=101;
-            }
+            if(this.x != 808) this.x+=101;
+            
 
         break;
 
         case "up":
 
-            if(this.y != -40){
-                this.y-=83;
-            }
+            if(this.y != -40) this.y-=83;
 
         break;
 
         case "down":
 
-            if(this.y != 545){
-               this.y+=83;
-            }
+            if(this.y != 545) this.y+=83;
 
         break;     
        
     }
-    console.log("x:" + this.x + " / y:" + this.y);
 };
 
-//Collision functtion
+// Player Collision functtion
 Player.prototype.collide = function (){
 
     for(var i=0; i < allEnemies.length; i++){
@@ -139,11 +132,12 @@ Player.prototype.collide = function (){
             this.y + 50 > allEnemies[i].y){
 
             this.playerReset();
-            alert("Hero has collided with a bug! Please try again!");
+            alert(this.charc+" has collided with a bug! Please try again!");
 
         }
     }
 }
+// Player blocked function to stop player (TODO Later)
 Player.prototype.blocked = function(){
 
     for(var i=0; i < allObstacles.length; i++){
@@ -151,7 +145,7 @@ Player.prototype.blocked = function(){
         if(this.x == allObstacles[i].x && this.y == allObstacles[i].y){
             
             this.playerReset();
-            console.log("hero collided with Obstacle");
+            alert(this.charc+" collided with Obstacle");
         }
 
     }
@@ -174,6 +168,7 @@ var Obstacle = function(x, y){
     this.y = y;
 
 }
+
 //render obstacle
 Obstacle.prototype.render = function(){
     ctx.drawImage(Resources.get(this.obj), this.x, this.y);
@@ -183,8 +178,45 @@ Obstacle.prototype.render = function(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-// Create New Player
-var player = new Player('images/char-cat-girl.png', 404, 545);
+var charc;
+var title;
+var answer = prompt("Are you a boy, girl, or girl cat?");
+
+// Start game with character choice
+switch(answer){
+
+    case "boy":
+    case "man":
+        charc = 'images/char-boy.png';
+        title = "Insect Boy";
+        alert("You are "+title+".");
+    break;
+
+    case "girl":
+    case "woman":
+        charc = 'images/char-princess-girl.png';
+        title = "Pretty Princess";
+        alert("You are "+title+"!");
+    break;
+
+    case "cat":
+    case "kitten":
+    case "girl cat":
+        charc = 'images/char-cat-girl.png';
+        title = "Cat Girl";
+        alert("You are "+title+"!");
+    break;
+
+    default:
+        charc = 'images/char-horn-girl.png';
+        title = "Horn Girl";
+        alert("None of the options selected. You are "+title+"!");
+    break;     
+   
+}
+
+// Create the New Player
+var player = new Player(charc, 404, 545, title);
 
 // Create a few enemies
 var enemy1 = new Enemy(2, 47, 80);

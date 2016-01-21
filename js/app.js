@@ -63,9 +63,9 @@ Player.prototype.update = function(){
     // if the hero reaches the top reset
     if(this.y <= 0 && this.x <= 909){
 
-        this.score +=1;
+        this.score +=10;
 
-        alert(this.charc+" has reached the water! Score = "+ this.score +"!");
+        alert(this.charc+" has reached the water! You get 10 points. Score is now "+ this.score +"!");
 
         for(var i=0; i < allEnemies.length; i++){
             allEnemies[i].enemyReset();
@@ -131,8 +131,9 @@ Player.prototype.collide = function (){
             this.y < allEnemies[i].y + 50 &&
             this.y + 50 > allEnemies[i].y){
 
+            this.score-=5;
             this.playerReset();
-            alert(this.charc+" has collided with a bug! Please try again!");
+            alert(this.charc+" has collided with a bug! You lose 5 points. Score is now "+ this.score);
 
         }
     }
@@ -144,8 +145,9 @@ Player.prototype.blocked = function(){
 
         if(this.x == allObstacles[i].x && this.y == allObstacles[i].y){
             
+            this.score-=2;
             this.playerReset();
-            alert(this.charc+" collided with Obstacle");
+            alert(this.charc+" collided with an Obstacle! You lose 2 points. Score is now "+ this.score);
         }
 
     }

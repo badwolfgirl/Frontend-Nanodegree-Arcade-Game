@@ -10,7 +10,6 @@ var Enemy = function(x, y, speed) {
     this.y          = y;
 
     this.initX      = x;
-    this.initY      = y;  
 
     this.speed      = speed;
 };
@@ -23,6 +22,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     //return dt;
 
+    // if the bug moves past boundary, reset
     if( this.x >= 909){
         this.enemyReset();
     }
@@ -58,34 +58,27 @@ var Player = function(sprite, x, y){
 
     this.initPlayX  = x;
     this.initPlayY  = y;  
+
+    this.score      = 0;
 };
 
 Player.prototype.update = function(){
 
-    if (this.x < 0) {
+    // if the hero reaches the top reset
+    if(this.y <= 0 && this.x <= 808){
 
-        this.x = 0;
+        this.score +=1;
+        alert("Hero has reached the water! Score = "+ this.score +"!");
 
-    } else if (this.x > 808){
-
-        this.x = 808;
-
-    }  else if (this.y < -40 ){
-
-        this.y = -40;
-
-    } else if (this.y > 545){
-
-        this.y = 545;
-
-    } else if( this.y <= 0 && this.x <= 808){
-
-        console.log("Hero has reached the water!");
+        for(var i=0; i < allEnemies.length; i++){
+            allEnemies[i].enemyReset();
+        }
         this.playerReset();
 
     } else if (this.collide()) {
 
         this.playerReset();
+
     }
 }
 
@@ -101,19 +94,34 @@ Player.prototype.handleInput = function(key){
 
         case "left":
 
+            if(this.x != 0){
                 this.x-=101;
+            }
+
         break;
 
         case "right":
+
+            if(this.x != 808){
                 this.x+=101;
+            }
+
         break;
 
         case "up":
+
+            if(this.y != -40){
                 this.y-=83;
+            }
+
         break;
 
         case "down":
-                this.y+=83;
+
+            if(this.y != 545){
+               this.y+=83;
+            }
+
         break;     
        
     }
@@ -131,13 +139,13 @@ Player.prototype.collide = function (){
             this.y + 50 > allEnemies[i].y){
 
             this.playerReset();
-            console.log("Hero has collided with bug!");
+            alert("Hero has collided with a bug! Please try again!");
 
         }
     }
 }
 Player.prototype.blocked = function(){
-    
+
     for(var i=0; i < allObstacles.length; i++){
 
         if(this.x == allObstacles[i].x && this.y == allObstacles[i].y){

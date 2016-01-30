@@ -1,66 +1,59 @@
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.sprite     = 'images/enemy-bug.png';
     this.x          = x;
     this.y          = y;
-
     this.initX      = x;
-
     this.speed      = speed;
+
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+// Move enemy accross screen and reset when moves off screen
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    //return dt;
 
-    // if the bug moves past boundary, reset bug
     if(this.x >= 909){
+
         this.enemyReset();
+
     }
     
     this.x += this.speed * dt;
 
 };
 
-// Draw the enemy on the screen, required method for game
+// Render the enemy on screen
 Enemy.prototype.render = function() {
+
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
 };
-// reset enemy if it moves past screen
+
+// Reset enemy to initial x position
 Enemy.prototype.enemyReset = function(){
+
     this.x = this.initX;
+
 }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// The hero enters the game!
 var Player = function(sprite, x, y, charc){
 
     this.sprite     = sprite;
     this.charc      = charc;
-
     this.x          = x;
     this.y          = y; 
-
     this.initPlayX  = x;
     this.initPlayY  = y;  
-
     this.score      = 0;
 
 };
-//Update player
+
+
+// Update the hero and check if they stay on course, do not bump into bugs or obstacles, and reset if they do. Score updates.
 Player.prototype.update = function(){
 
-    // if the hero reaches the top reset
+    // if the hero reaches the top, reset
     if(this.y <= 0 && this.x <= 909){
 
         this.score +=10;
@@ -81,16 +74,20 @@ Player.prototype.update = function(){
         this.playerReset();
 
     } 
+
 }
 
-// render player
+// Render the player on screen
 Player.prototype.render = function(){
+
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
 };
-// move the character within boundary
+
+
+// Update the x & y based on the key movements with a switch case
 Player.prototype.handleInput = function(key){
    
-   //switch and case for key stroke movement
     switch(key){
 
         case "left":
@@ -119,9 +116,11 @@ Player.prototype.handleInput = function(key){
         break;     
        
     }
+
 };
 
-// Player Collision functtion
+// Player Collision function 
+// I was stuck here, but I read through the P3 Forums to get a better understanding of what I needed to do!
 Player.prototype.collide = function (){
 
     for(var i=0; i < allEnemies.length; i++){
@@ -136,9 +135,13 @@ Player.prototype.collide = function (){
             alert(this.charc+" has collided with a bug! You lose 5 points. Score is now "+ this.score);
 
         }
+
     }
+
 }
-// Player blocked function to stop player (TODO Later)
+
+// Player blocked function to stop player
+// For now, my player resets at an obstacle. I plan for the player to be blocked by the obstacle instead later.
 Player.prototype.blocked = function(){
 
     for(var i=0; i < allObstacles.length; i++){
@@ -154,7 +157,7 @@ Player.prototype.blocked = function(){
 
 }
 
-//Reset player to initial starting point
+// Reset player to initial starting point
 Player.prototype.playerReset = function(){
 
     this.x = this.initPlayX;
@@ -162,7 +165,7 @@ Player.prototype.playerReset = function(){
 
 }
 
-//Create obstacle object
+// Create obstacle object
 var Obstacle = function(x, y){
 
     this.obj = 'images/Rock.png';
@@ -171,15 +174,12 @@ var Obstacle = function(x, y){
 
 }
 
-//render obstacle
+// Render obstacle
 Obstacle.prototype.render = function(){
     ctx.drawImage(Resources.get(this.obj), this.x, this.y);
 };
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
+// I wanted to give the user a choice of hero
 var charc;
 var title;
 var answer = prompt("Are you a boy, girl, or girl cat?");

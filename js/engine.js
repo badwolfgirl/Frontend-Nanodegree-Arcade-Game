@@ -25,6 +25,7 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
+    // larger canvas size
     canvas.width = 909;
     canvas.height = 808;
     doc.body.appendChild(canvas);
@@ -117,6 +118,7 @@ var Engine = (function(global) {
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
+            // decided to increase game board size
             numRows = 8,
             numCols = 9,
             row, col;
@@ -181,11 +183,11 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        //loading in an obstacle
+        // loading in extra players
         'images/char-cat-girl.png',
         'images/char-princess-girl.png',
         'images/char-horn-girl.png',
-        //loading in an obstacle
+        // loading in an obstacle
         'images/Rock.png'
 
     ]);

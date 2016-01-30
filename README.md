@@ -1,5 +1,5 @@
-frontend-nanodegree-arcade-game
-===============================
+Front-end Nanodegree Arcade game
+=================================
 
 ##Description
 

@@ -165,7 +165,7 @@ Player.prototype.playerReset = function(){
 //Create obstacle object
 var Obstacle = function(x, y){
 
-    this.obj = 'images/rock.png';
+    this.obj = 'images/Rock.png';
     this.x = x;
     this.y = y;
 
@@ -183,6 +183,7 @@ Obstacle.prototype.render = function(){
 var charc;
 var title;
 var answer = prompt("Are you a boy, girl, or girl cat?");
+var script = "If you get to the water, you get 10 points. Hit a bug and you lose 5 points. Hit a rock and you lose 2 points. Have fun!";
 
 // Start game with character choice
 switch(answer){
@@ -191,14 +192,14 @@ switch(answer){
     case "man":
         charc = 'images/char-boy.png';
         title = "Insect Boy";
-        alert("You are "+title+".");
+        alert("You are "+title+". "+script);
     break;
 
     case "girl":
     case "woman":
         charc = 'images/char-princess-girl.png';
         title = "Pretty Princess";
-        alert("You are "+title+"!");
+        alert("You are "+title+"! "+script);
     break;
 
     case "cat":
@@ -206,13 +207,13 @@ switch(answer){
     case "girl cat":
         charc = 'images/char-cat-girl.png';
         title = "Cat Girl";
-        alert("You are "+title+"!");
+        alert("You are "+title+"! "+script);
     break;
 
     default:
         charc = 'images/char-horn-girl.png';
         title = "Horn Girl";
-        alert("None of the options selected. You are "+title+"!");
+        alert("None of the options selected. You are "+title+"! "+script);
     break;     
    
 }

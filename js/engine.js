@@ -186,7 +186,7 @@ var Engine = (function(global) {
         'images/char-princess-girl.png',
         'images/char-horn-girl.png',
         //loading in an obstacle
-        'images/rock.png'
+        'images/Rock.png'
 
     ]);
     Resources.onReady(init);

@@ -5,9 +5,11 @@ Front-end Nanodegree Arcade game
 
 Simple JavaScript based Frogger game. Follow the prompts to choose your hero and learn the rules, and then enjoy the game!
 
-##Installation
+##Installation and Run
 
-Download and extract the zip to a local folder. If you would like to play, simply open up the index.html file into a prefered browser.
+Visit my Github page (https://github.com/badwolfgirl/frontend-nanodegree-arcade-game) and download the zip file. Extract the zip to a local folder of your choice. If you would like to play, simply open up the index.html file into a prefered browser.
+
+
 
 ##License
 

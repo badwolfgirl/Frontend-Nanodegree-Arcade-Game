@@ -3,13 +3,15 @@ Front-end Nanodegree Arcade game
 
 ##Description
 
-Simple JavaScript based Frogger game. Follow the prompts to choose your hero and learn the rules, and then enjoy the game!
+Simple JavaScript based Frogger game. Choose your hero and get to the water to gain 10 points. Avoid the bugs and rocks, or you will lose points.
 
-##Installation and Run
+##Installation
 
-Visit my Github page (https://github.com/badwolfgirl/frontend-nanodegree-arcade-game) and download the zip file. Extract the zip to a local folder of your choice. If you would like to play, simply open up the index.html file into a prefered browser.
+Visit my Github page (https://github.com/badwolfgirl/frontend-nanodegree-arcade-game) and download the zip file. Extract the zip to a local folder of your choice.
 
+##How to Run
 
+If you would like to play, simply open up the folder and open the index.html file into a prefered browser. Follow the browser prompts to choose your hero and learn the rules. Enjoy the game!
 
 ##License
 

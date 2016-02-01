@@ -7,7 +7,7 @@ Simple JavaScript based Frogger game. Choose your hero and get to the water to g
 
 ##Installation
 
-Visit my Github page (https://github.com/badwolfgirl/frontend-nanodegree-arcade-game) and download the zip file. Extract the zip to a local folder of your choice.
+Visit my GitHub page (https://github.com/badwolfgirl/frontend-nanodegree-arcade-game) and download the zip file. Extract the zip to a local folder of your choice.
 
 ##How to Run
 
